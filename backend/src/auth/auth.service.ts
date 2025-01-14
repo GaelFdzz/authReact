@@ -16,7 +16,7 @@ export class AuthService {
             throw new HttpException('Usuario ya existe', HttpStatus.BAD_REQUEST);
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10); // Encripta la contraseña
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         await this.prisma.user.create({
             data: { email, password: hashedPassword },
@@ -37,7 +37,7 @@ export class AuthService {
         const token = this.jwtService.sign(payload);
 
         console.log("Inicio correcto")
-        console.log({ token }); // Verifica el token generado
+        console.log({ token });
         return { token };
     }
 
@@ -50,7 +50,7 @@ export class AuthService {
 
 
     async validateUser(userId: string): Promise<any> {
-        const numericId = parseInt(userId, 10); // Convierte el string a número
+        const numericId = parseInt(userId, 10);
         if (isNaN(numericId)) {
             throw new HttpException('Invalid user ID', HttpStatus.BAD_REQUEST);
         }
